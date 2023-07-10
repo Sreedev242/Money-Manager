@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:personal_money_management_app/Models/category/category_dialogbox.dart';
 import 'package:personal_money_management_app/Models/category/categorymodel.dart';
 import 'package:personal_money_management_app/Models/category/functions.dart';
+import 'package:personal_money_management_app/Models/transaction/transactionmodel.dart';
 
 //  String? valueOfselectedItem='';
+
 ValueNotifier selectedradio = ValueNotifier(CategoryType.income);
 ValueNotifier<DateTime?> selectdDatevalue = ValueNotifier(null);
 ValueNotifier<CategoryModel?> selectedDropdownValue = ValueNotifier(null);
+
+CategoryModel? cccc;
+CategoryModel? _selectedCategoryItem;
 
 TextEditingController ctrlpurpose = TextEditingController();
 TextEditingController ctrlamount = TextEditingController();
@@ -78,10 +84,10 @@ class addTransactionscreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  RadioOfTransactionpage(
+                  const RadioOfTransactionpage(
                       categoryname: 'Income', type: CategoryType.income),
                   gapBetween(25),
-                  RadioOfTransactionpage(
+                  const RadioOfTransactionpage(
                       categoryname: 'Expense', type: CategoryType.expense),
                 ],
               ),
@@ -108,24 +114,25 @@ class addTransactionscreen extends StatelessWidget {
                         getcategory();
 
                         CorrespondingList = incomecategorynotifier;
-                        
                       } else {
+                        getcategory();
                         CorrespondingList = expensecategorynotifier;
-                         
-                      
-                      
                       }
 
                       return DropdownButton(
-                        hint: Text('Select Item'),
-                        value: current,
+                        hint: const Text('Select Item'),
+                        value: cccc,
                         items: CorrespondingList.value.map((e) {
                           return DropdownMenuItem(
                             child: Text(e.name ?? ''),
                             value: e,
+                            onTap: () {
+                              _selectedCategoryItem = e;
+                            },
                           );
                         }).toList(),
                         onChanged: (newitem) {
+                          cccc = newitem;
                           current = newitem;
                           selectedDropdownValue.value =
                               newitem as CategoryModel;
@@ -146,8 +153,9 @@ class addTransactionscreen extends StatelessWidget {
               ElevatedButton(
                   onPressed: () {
                     // Funtn od submit button
+                   addTransaction();
                   },
-                  child: Text('Submit'))
+                  child: const Text('Submit'))
             ],
           ),
         ),
@@ -176,6 +184,7 @@ class RadioOfTransactionpage extends StatelessWidget {
                 value: type,
                 groupValue: xxx,
                 onChanged: (newvlaue) {
+                  cccc = null;
                   selectedradio.value = newvlaue;
                   selectedradio.notifyListeners();
                 });
@@ -185,4 +194,47 @@ class RadioOfTransactionpage extends StatelessWidget {
       ],
     );
   }
+
+// following is to add data when Submit button is clicked
+
+
+}  
+
+Future<void> addTransaction() async {
+    final _purpose = ctrlpurpose.text;
+    final _amount = ctrlamount.text;
+    DateTime? datex = selectdDatevalue.value;
+    CategoryType? selectedcategoryType=selectedradio.value;
+    
+
+    if (_purpose.isEmpty) {
+      return;
+    }
+    if (_amount.isEmpty) {
+      return;
+    }
+    if (datex == null) {
+      return;
+    }
+      final _parsedamount=double.tryParse(_amount);
+    if (_parsedamount==null) {
+      return;
+    }
+    if (_selectedCategoryItem==null) {
+      return;
+    }
+    if (selectedcategoryType==null) {
+      return;
+    }
+  
+  final  modelx= TransactionModel(
+      Purpose: _purpose,
+      Amount: _parsedamount,
+      date: datex,
+      tranType: selectedcategoryType,
+      categotyItem: _selectedCategoryItem!,
+    );
+
+  final transBox=await Hive.openBox<TransactionModel>('trans');
+    transBox.add(modelx);
 }

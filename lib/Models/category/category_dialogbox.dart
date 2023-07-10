@@ -49,7 +49,7 @@ Future<void> showdialogueBox(BuildContext context) async {
 
                 insertCategory(CategoryModel(
                   name: _name, 
-                  type: selectedcategorynotifier.value,
+                  catType: selectedcategorynotifier.value,
                    id: DateTime.now().millisecondsSinceEpoch.toString(),));
                    getcategory();
                  
@@ -66,7 +66,7 @@ Future<void> showdialogueBox(BuildContext context) async {
 
 class Radioofbox extends StatelessWidget {
   final String categoryname;
-  final CategoryType type;
+  final CategoryType? type;
   
    Radioofbox(
     {super.key,

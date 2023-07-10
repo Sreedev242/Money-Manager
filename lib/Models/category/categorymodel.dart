@@ -1,12 +1,12 @@
 import 'package:hive_flutter/adapters.dart';
 part 'categorymodel.g.dart';
 @HiveType(typeId: 0)
-enum CategoryType {
+enum CategoryType{
   @HiveField(0)
   income,
 
   @HiveField(1)
-  expense, defaultType,
+  expense,
 }
 @HiveType(typeId: 1)
 class CategoryModel {
@@ -17,7 +17,7 @@ class CategoryModel {
   final String id;
 
   @HiveField(3)
-  final CategoryType type;
+  final CategoryType? catType;
 
   @HiveField(4)
   final bool isDeleted;
@@ -25,7 +25,7 @@ class CategoryModel {
   
   CategoryModel(
       {required this.name,
-      required this.type,
+      required this.catType,
       this.isDeleted = false,
       required this.id});
 }

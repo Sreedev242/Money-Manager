@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:personal_money_management_app/Category/Categoeyscreen.dart';
 import 'package:personal_money_management_app/Home/Widgets/Bottomnavi_.dart';
-import 'package:personal_money_management_app/Models/category/functions.dart';
 import 'package:personal_money_management_app/Transactions/Transactionscreen.dart';
 import 'package:personal_money_management_app/Transactions/add_transactionscreen.dart';
 

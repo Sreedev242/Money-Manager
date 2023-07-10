@@ -20,11 +20,13 @@ Future getcategory()async{
    incomecategorynotifier.value.clear();
    expensecategorynotifier.value.clear();
   await  Future.forEach
-      (boxlist, (CategoryModel category) {   //to check each data of yhe list
-    if (category.type==CategoryType.income) {
+      (boxlist, (CategoryModel category) {
+           //to check each data of yhe list
+    if (category.catType==CategoryType.income) {
+     getcategory();
       incomecategorynotifier.value.add(category);
     }
-    else{
+    else{getcategory();
       expensecategorynotifier.value.add(category);
     }
   }
@@ -38,6 +40,7 @@ Future getcategory()async{
 // Future deleteCategory(int id)async{
 //     // final namebox=await Hive.openBox<CategoryModel>(boxname);
 // }
+
 
 
 
