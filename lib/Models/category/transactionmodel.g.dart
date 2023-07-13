@@ -20,7 +20,7 @@ class TransactionModelAdapter extends TypeAdapter<TransactionModel> {
       Purpose: fields[0] as String,
       Amount: fields[1] as double,
       date: fields[2] as DateTime,
-      tranType: fields[3] as CategoryType,
+      tranType: fields[3] as CategoryType?,
       categotyItem: fields[4] as CategoryModel,
       id: fields[5] as String?,
     );

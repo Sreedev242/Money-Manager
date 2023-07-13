@@ -7,6 +7,7 @@ enum CategoryType{
 
   @HiveField(1)
   expense,
+ 
 }
 @HiveType(typeId: 1)
 class CategoryModel {
@@ -14,13 +15,13 @@ class CategoryModel {
   final String? name;
 
   @HiveField(2)
-  final String id;
+  final String? id;
 
   @HiveField(3)
   final CategoryType? catType;
 
   @HiveField(4)
-  final bool isDeleted;
+  final bool? isDeleted;
 
   
   CategoryModel(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:personal_money_management_app/Models/category/functions.dart';
+import 'package:personal_money_management_app/functions.dart';
 
 import '../Models/category/categorymodel.dart';
 

@@ -18,9 +18,9 @@ class CategoryModelAdapter extends TypeAdapter<CategoryModel> {
     };
     return CategoryModel(
       name: fields[1] as String?,
-      catType: fields[3] as CategoryType,
-      isDeleted: fields[4] as bool,
-      id: fields[2] as String,
+      catType: fields[3] as CategoryType?,
+      isDeleted: fields[4] as bool?,
+      id: fields[2] as String?,
     );
   }
 

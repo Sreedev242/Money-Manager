@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:personal_money_management_app/Home/Homescreen.dart';
 import 'package:personal_money_management_app/Models/category/categorymodel.dart';
-import 'package:personal_money_management_app/Models/transaction/transactionmodel.dart';
+import 'package:personal_money_management_app/Models/category/transactionmodel.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

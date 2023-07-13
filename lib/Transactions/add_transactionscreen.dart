@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:intl/intl.dart';
 import 'package:personal_money_management_app/Models/category/category_dialogbox.dart';
 import 'package:personal_money_management_app/Models/category/categorymodel.dart';
-import 'package:personal_money_management_app/Models/category/functions.dart';
-import 'package:personal_money_management_app/Models/transaction/transactionmodel.dart';
+import 'package:personal_money_management_app/functions.dart';
+import 'package:personal_money_management_app/Models/category/transactionmodel.dart';
 
 //  String? valueOfselectedItem='';
 
@@ -53,6 +54,9 @@ class addTransactionscreen extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
+
+              // Date
+
               ValueListenableBuilder(
                   valueListenable: selectdDatevalue,
                   builder:
@@ -61,7 +65,9 @@ class addTransactionscreen extends StatelessWidget {
                     if (chosenDate == null) {
                       date = 'Select Date';
                     } else {
-                      date = chosenDate.toString();
+                      date = DateFormat('dd-MMM-yyyy')
+                          .format(chosenDate)
+                          .toString();
                     }
                     return TextButton.icon(
                         onPressed: () async {
@@ -153,7 +159,9 @@ class addTransactionscreen extends StatelessWidget {
               ElevatedButton(
                   onPressed: () {
                     // Funtn od submit button
-                   addTransaction();
+                    addTransaction(context);
+                    getTransaction();
+                  
                   },
                   child: const Text('Submit'))
             ],
@@ -168,7 +176,7 @@ class addTransactionscreen extends StatelessWidget {
 
 class RadioOfTransactionpage extends StatelessWidget {
   final String categoryname;
-  final CategoryType type;
+  final CategoryType? type;
 
   const RadioOfTransactionpage(
       {super.key, required this.categoryname, required this.type});
@@ -196,45 +204,67 @@ class RadioOfTransactionpage extends StatelessWidget {
   }
 
 // following is to add data when Submit button is clicked
+}
 
+Future<void> addTransaction(BuildContext context) async {
+  final _purpose = ctrlpurpose.text;
+  final _amount = ctrlamount.text;
+  DateTime? datex = selectdDatevalue.value;
+  CategoryType? selectedcategoryType = selectedradio.value;
+  selectedradio.notifyListeners();
 
-}  
-
-Future<void> addTransaction() async {
-    final _purpose = ctrlpurpose.text;
-    final _amount = ctrlamount.text;
-    DateTime? datex = selectdDatevalue.value;
-    CategoryType? selectedcategoryType=selectedradio.value;
-    
-
-    if (_purpose.isEmpty) {
-      return;
-    }
-    if (_amount.isEmpty) {
-      return;
-    }
-    if (datex == null) {
-      return;
-    }
-      final _parsedamount=double.tryParse(_amount);
-    if (_parsedamount==null) {
-      return;
-    }
-    if (_selectedCategoryItem==null) {
-      return;
-    }
-    if (selectedcategoryType==null) {
-      return;
-    }
-  
-  final  modelx= TransactionModel(
-      Purpose: _purpose,
-      Amount: _parsedamount,
-      date: datex,
-      tranType: selectedcategoryType,
-      categotyItem: _selectedCategoryItem!,
+  if (_purpose.isEmpty) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('   Purpose required'),
+        backgroundColor: Color.fromARGB(255, 237, 35, 35),
+      ),
     );
+  }
+  if (_amount.isEmpty) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('   Amount required'),
+        backgroundColor: Color.fromARGB(255, 237, 35, 35),
+      ),
+    );
+  }
+  if (datex == null) { ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('   Date required'),
+        backgroundColor: Color.fromARGB(255, 237, 35, 35),
+      ),
+    );
+    return;
+  }
+  final _parsedamount = double.tryParse(_amount);
+  if (_parsedamount == null) {
+    return;
+  }
+  if (_selectedCategoryItem == null) {
+     ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('   Select an Item '),
+        backgroundColor: Color.fromARGB(255, 237, 35, 35),
+      ),
+    );
+    return;
+  }
+  if (selectedcategoryType == null) {
+    return;
+  } else{
+    Navigator.of(context).pop();
+  }
 
-  final transBox=await Hive.openBox<TransactionModel>('trans');
-    transBox.add(modelx);
+  final modelx = TransactionModel(
+    Purpose: _purpose,
+    Amount: _parsedamount,
+    date: datex,
+    tranType: selectedcategoryType,
+    categotyItem: _selectedCategoryItem!,
+  );
+
+  final transBox = await Hive.openBox<TransactionModel>('trans');
+  await transBox.add(modelx);
+  
 }
