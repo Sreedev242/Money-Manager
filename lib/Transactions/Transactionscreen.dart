@@ -28,12 +28,12 @@ class TransactionScreen extends StatelessWidget {
                       radius: 50,
                       backgroundColor: Trans.tranType==CategoryType.income? 
                       Color.fromARGB(225, 138, 232, 143)
-                      :Color.fromARGB(255, 255, 181, 181),
+                      :Color.fromARGB(255, 239, 114, 114),
                       child: Text(
                         '${DateFormat.MMMd().format(Trans.date).split(' ').last}\n${DateFormat.MMMd().format(Trans.date).split(' ').first}' 
                         
                         ),
-
+              
                       ),
                     title: Text('Rs ${Trans.Amount}'),
                     subtitle: Text(Trans.categotyItem.name??''),

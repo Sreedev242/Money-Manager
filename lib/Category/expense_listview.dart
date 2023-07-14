@@ -11,30 +11,34 @@ class expenselistview extends StatelessWidget {
     return ValueListenableBuilder(
       valueListenable: expensecategorynotifier, 
       builder: (BuildContext context, List<CategoryModel> newcategoryexpense, Widget?_){
-        return  ListView.separated(
-      itemBuilder: (ctx,index){
-        final exp=newcategoryexpense[index];
-      return Card(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          
-          child: ListTile( tileColor: const Color.fromARGB(255, 223, 248, 224),
-          
-            title: Text(exp.name ?? ''),
-            trailing: IconButton(onPressed: (){
-              // delete item frm expense
-              
-            }, icon: Icon(Icons.delete)),
+        return  Padding(
+          padding: const EdgeInsets.only(bottom: 70),
+          child: ListView.separated(
+              itemBuilder: (ctx,index){
+          final exp=newcategoryexpense[index];
+        
+              return Card(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            
+            child: ListTile( tileColor: const Color.fromARGB(255, 223, 248, 224),
+            
+              title: Text(exp.name??''),
+              trailing: IconButton(onPressed: (){
+                // delete item frm expense
+                deletexpenseCategory(exp.id!);
+              }, icon: Icon(Icons.delete)),
+            ),
           ),
-        ),
-      );
-      }, 
-    separatorBuilder: (ctx,index){
-      return SizedBox(
-        height: 12,
-      );
-    }, 
-    itemCount: newcategoryexpense.length,);
+              );
+              }, 
+            separatorBuilder: (ctx,index){
+              return SizedBox(
+          height: 12,
+              );
+            }, 
+            itemCount: newcategoryexpense.length,),
+        );
       });
   }
 }

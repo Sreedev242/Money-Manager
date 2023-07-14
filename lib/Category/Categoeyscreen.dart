@@ -14,6 +14,7 @@ class _categoryscreenState extends State<categoryscreen> with SingleTickerProvid
 
 late final TabController _tabcontroller=TabController(length: 2, vsync:this);
 
+
 @override
   void initState() {
     _tabcontroller;
@@ -22,28 +23,31 @@ late final TabController _tabcontroller=TabController(length: 2, vsync:this);
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          TabBar(controller: _tabcontroller,
-            tabs: [
-           Tab(text: 'Income'),
-             Tab(text: 'Expense')
-          ],
-
-          ),
-          Expanded(
-            child: TabBarView(
-              controller: _tabcontroller,
-              children: [
-              
-              incomelistview(),
-              expenselistview()
-            ]
+    
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
+          children: [
+            TabBar(controller: _tabcontroller,
+              tabs: [
+             Tab(text: 'Income'),
+               Tab(text: 'Expense')
+            ],
+    
             ),
-          )
-        ],
-      )
+            Expanded(
+              child: TabBarView(
+                controller: _tabcontroller,
+                children: [
+                
+                incomelistview(),
+                expenselistview()
+              ]
+              ),
+            )
+          ],
+        )
+      ),
     );
   }
 }

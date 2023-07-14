@@ -9,6 +9,7 @@ ValueNotifier<List<CategoryModel>> expensecategorynotifier = ValueNotifier([]);
 
 ValueNotifier<List<TransactionModel>> TransactionNotifierlist =
     ValueNotifier([]);
+CategoryModel? y;
 
 const String boxname = 'xbox';
 
@@ -23,13 +24,11 @@ Future getcategory() async {
   final boxlist = await namebox.values.toList();
   incomecategorynotifier.value.clear();
   expensecategorynotifier.value.clear();
-  for (var category in boxlist) {}
-
   await Future.forEach(boxlist, (CategoryModel category) {
-    //to check each data of yhe list
+    
     if (category.catType == CategoryType.income) {
       incomecategorynotifier.value.add(category);
-    } else {
+    } else {                                             //to check each data of yhe list
       expensecategorynotifier.value.add(category);
     }
   });
@@ -37,11 +36,33 @@ Future getcategory() async {
   expensecategorynotifier.notifyListeners();
 }
 
+
+
+//  Following is to delete IncomeCategory Item
+
+Future deleteIncomeCategory(String xID)async{
+   final namebox = await Hive.openBox<CategoryModel>(boxname);
+  await namebox.delete(xID);
+   incomecategorynotifier.value.removeWhere((element) => element.id==xID);
+
+   incomecategorynotifier.notifyListeners();
+  
+}
+
+//  Following is to delete expenseCategory Item
+
+Future<void>  deletexpenseCategory(String xID)async{
+   final namebox = await Hive.openBox<CategoryModel>(boxname);
+  await namebox.delete(xID);
+   expensecategorynotifier.value.removeWhere((element) => element.id==xID);
+   expensecategorynotifier.notifyListeners();
+}
+
 // Following is to get items from Add transaction
 
 Future getTransaction() async {
-  final namebox = await Hive.openBox<TransactionModel>('trans');
-  final boxlist = await namebox.values.toList();
+  final transBox = await Hive.openBox<TransactionModel>('trans');
+  final boxlist = await transBox.values.toList();
   boxlist.sort(
     (First, Second) {
       return Second.date

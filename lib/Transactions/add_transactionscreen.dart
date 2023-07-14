@@ -23,6 +23,7 @@ class addTransactionscreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+   
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 217, 235, 218),
       appBar: AppBar(
@@ -117,11 +118,11 @@ class addTransactionscreen extends StatelessWidget {
                       ValueNotifier<List<CategoryModel>> CorrespondingList;
 
                       if (selectedradio.value == CategoryType.income) {
-                        getcategory();
+                      
 
                         CorrespondingList = incomecategorynotifier;
                       } else {
-                        getcategory();
+                      
                         CorrespondingList = expensecategorynotifier;
                       }
 
@@ -130,7 +131,7 @@ class addTransactionscreen extends StatelessWidget {
                         value: cccc,
                         items: CorrespondingList.value.map((e) {
                           return DropdownMenuItem(
-                            child: Text(e.name ?? ''),
+                            child: Text(e.name ?? '',),
                             value: e,
                             onTap: () {
                               _selectedCategoryItem = e;
@@ -161,7 +162,7 @@ class addTransactionscreen extends StatelessWidget {
                     // Funtn od submit button
                     addTransaction(context);
                     getTransaction();
-                  
+                   
                   },
                   child: const Text('Submit'))
             ],
