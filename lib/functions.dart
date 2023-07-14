@@ -9,7 +9,6 @@ ValueNotifier<List<CategoryModel>> expensecategorynotifier = ValueNotifier([]);
 
 ValueNotifier<List<TransactionModel>> TransactionNotifierlist =
     ValueNotifier([]);
-CategoryModel? y;
 
 const String boxname = 'xbox';
 
@@ -42,9 +41,9 @@ Future getcategory() async {
 
 Future deleteIncomeCategory(String xID)async{
    final namebox = await Hive.openBox<CategoryModel>(boxname);
+   
   await namebox.delete(xID);
-   incomecategorynotifier.value.removeWhere((element) => element.id==xID);
-
+incomecategorynotifier.value.removeWhere((element) => element.id==xID);
    incomecategorynotifier.notifyListeners();
   
 }
@@ -53,8 +52,9 @@ Future deleteIncomeCategory(String xID)async{
 
 Future<void>  deletexpenseCategory(String xID)async{
    final namebox = await Hive.openBox<CategoryModel>(boxname);
+
   await namebox.delete(xID);
-   expensecategorynotifier.value.removeWhere((element) => element.id==xID);
+      expensecategorynotifier.value.removeWhere((element) => element.id==xID);
    expensecategorynotifier.notifyListeners();
 }
 
