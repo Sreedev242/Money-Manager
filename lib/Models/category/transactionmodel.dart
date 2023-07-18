@@ -24,8 +24,6 @@ class TransactionModel {
     required this.date,
     required this.tranType,
     required this.categotyItem,
-    this.id
-  }){
-    id=DateTime.now().millisecondsSinceEpoch.toString();
-  }
+   required this.id
+  });
 }

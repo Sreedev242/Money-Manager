@@ -6,7 +6,7 @@ import 'package:personal_money_management_app/Models/category/transactionmodel.d
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  
+    Hive.initFlutter();
   if (!Hive.isAdapterRegistered(CategoryModelAdapter().typeId)) {
      Hive.registerAdapter(CategoryModelAdapter());
   }
@@ -16,7 +16,7 @@ void main() {
   if (!Hive.isAdapterRegistered(TransactionModelAdapter().typeId)) {
     Hive.registerAdapter(TransactionModelAdapter());
   }
-  Hive.initFlutter();
+
   runApp( MyApp());
 }
 

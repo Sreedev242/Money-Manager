@@ -12,7 +12,7 @@ class expenselistview extends StatelessWidget {
       valueListenable: expensecategorynotifier, 
       builder: (BuildContext context, List<CategoryModel> newcategoryexpense, Widget?_){
         return  Padding(
-          padding: const EdgeInsets.only(bottom: 70),
+          padding: const EdgeInsets.only(bottom: 60),
           child: ListView.separated(
               itemBuilder: (ctx,index){
           final exp=newcategoryexpense[index];
@@ -21,12 +21,12 @@ class expenselistview extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             
-            child: ListTile( tileColor: const Color.fromARGB(255, 223, 248, 224),
+            child: ListTile( tileColor: Color.fromARGB(255, 248, 223, 223),
             
               title: Text(exp.name??''),
               trailing: IconButton(onPressed: (){
                 // delete item frm expense
-                deletexpenseCategory(exp.id!);
+                deleteExpenseCategory(exp.id??'');
               }, icon: Icon(Icons.delete)),
             ),
           ),

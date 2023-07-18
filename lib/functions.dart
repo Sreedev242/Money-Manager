@@ -15,6 +15,7 @@ const String boxname = 'xbox';
 Future<void> insertCategory(CategoryModel value) async {
   final namebox = await Hive.openBox<CategoryModel>(boxname);
   namebox.add(value);
+  getcategory();
 }
 // Following fuction is to display on ui when new data is added
 
@@ -39,23 +40,33 @@ Future getcategory() async {
 
 //  Following is to delete IncomeCategory Item
 
-Future deleteIncomeCategory(String xID)async{
+Future<void> deleteIncomeCategory(String? xID)async{
    final namebox = await Hive.openBox<CategoryModel>(boxname);
    
   await namebox.delete(xID);
 incomecategorynotifier.value.removeWhere((element) => element.id==xID);
+// final transBox = await Hive.openBox<TransactionModel>('trans');
+// transBox.delete(xID);
+// TransactionNotifierlist.value.removeWhere((element) => element.categotyItem.id==xID);
+// TransactionNotifierlist.notifyListeners();
    incomecategorynotifier.notifyListeners();
-  
+
 }
 
 //  Following is to delete expenseCategory Item
 
-Future<void>  deletexpenseCategory(String xID)async{
+Future<void>  deleteExpenseCategory(String xID)async{
    final namebox = await Hive.openBox<CategoryModel>(boxname);
 
   await namebox.delete(xID);
       expensecategorynotifier.value.removeWhere((element) => element.id==xID);
+      final transBox = await Hive.openBox<TransactionModel>('trans');
+transBox.delete(xID);
+TransactionNotifierlist.value.removeWhere((element) => element.categotyItem.id==xID);
+TransactionNotifierlist.notifyListeners();
+   
    expensecategorynotifier.notifyListeners();
+  
 }
 
 // Following is to get items from Add transaction
@@ -72,4 +83,11 @@ Future getTransaction() async {
   TransactionNotifierlist.value.clear();
   TransactionNotifierlist.value.addAll(boxlist);
   TransactionNotifierlist.notifyListeners();
+}
+Future<void>deleteTransaction(String? xId)async{
+  final transBox=await Hive.openBox<TransactionModel>('trans');
+  await transBox.delete(xId);
+  TransactionNotifierlist.value.removeWhere((element) => element.id==xId);
+TransactionNotifierlist.notifyListeners();
+
 }

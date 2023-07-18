@@ -8,6 +8,7 @@ import 'package:personal_money_management_app/functions.dart';
   TextEditingController _ctrladdcategory=TextEditingController();
 
 Future<void> showdialogueBox(BuildContext context) async {
+  getcategory();
   return showDialog(
       context: context,
       builder: (context) {

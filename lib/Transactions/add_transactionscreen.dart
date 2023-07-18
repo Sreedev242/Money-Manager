@@ -23,7 +23,7 @@ class addTransactionscreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   
+   getcategory();
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 217, 235, 218),
       appBar: AppBar(
@@ -263,6 +263,7 @@ Future<void> addTransaction(BuildContext context) async {
     date: datex,
     tranType: selectedcategoryType,
     categotyItem: _selectedCategoryItem!,
+    id: DateTime.now().millisecondsSinceEpoch.toString()
   );
 
   final transBox = await Hive.openBox<TransactionModel>('trans');

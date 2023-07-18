@@ -5,15 +5,15 @@ import '../Models/category/categorymodel.dart';
 
 class incomelistview extends StatelessWidget {
   const incomelistview({super.key});
-
+  
   @override
   Widget build(BuildContext context) {
-  
+  getcategory();
     return ValueListenableBuilder(
       valueListenable: incomecategorynotifier,
        builder: (BuildContext, List<CategoryModel>newcategoryincome, Widget?_){
         return Padding(
-          padding: const EdgeInsets.only(bottom: 70),
+          padding: const EdgeInsets.only(bottom: 60),
           child: ListView.separated(
               itemBuilder: (ctx,index){
           final inc=newcategoryincome[index];
@@ -28,7 +28,7 @@ class incomelistview extends StatelessWidget {
               trailing: IconButton(onPressed: (){
                 // delete item frm incom
                 
-                deleteIncomeCategory(inc.id??'');
+                deleteIncomeCategory(inc.id);
                
               }, icon: const Icon(Icons.delete)),
             ),

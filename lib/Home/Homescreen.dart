@@ -3,6 +3,7 @@ import 'package:personal_money_management_app/Category/Categoeyscreen.dart';
 import 'package:personal_money_management_app/Home/Widgets/Bottomnavi_.dart';
 import 'package:personal_money_management_app/Transactions/Transactionscreen.dart';
 import 'package:personal_money_management_app/Transactions/add_transactionscreen.dart';
+import 'package:personal_money_management_app/functions.dart';
 
 import '../Models/category/category_dialogbox.dart';
 
@@ -18,6 +19,7 @@ class Homescreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+  
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color.fromARGB(255, 78, 211, 84),
