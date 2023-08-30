@@ -100,15 +100,14 @@ class TransactionScreen extends StatelessWidget {
             ),
             itemBuilder: (context, transaction) => Slidable(
               key: Key(transaction.id!),
-              startActionPane: ActionPane(
-                motion: ScrollMotion(), 
-                children: [
-                  SlidableAction(onPressed: (ctx){
-                    deleteTransaction(transaction.id);
-                  },
-                  icon: Icons.delete,
-                  backgroundColor: Color.fromARGB(245, 225, 30, 30),)
-                ]),
+              startActionPane:ActionPane(
+                motion: ScrollMotion(), children: [
+                SlidableAction(onPressed: (ctx){
+                  deleteTransaction(transaction.id);
+                },
+                backgroundColor:Color.fromARGB(255, 237, 50, 50),
+                icon: Icons.delete,)
+              ]),
               child: Card(
                 child: Padding(
                   padding: EdgeInsets.all(8.0),

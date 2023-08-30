@@ -15,7 +15,7 @@ class CategoryModel {
   final String? name;
 
   @HiveField(2)
-   String? id;
+  final String? id;
 
   @HiveField(3)
   final CategoryType? catType;

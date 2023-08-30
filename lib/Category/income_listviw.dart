@@ -28,7 +28,7 @@ class incomelistview extends StatelessWidget {
               trailing: IconButton(onPressed: (){
                 // delete item frm incom
                 
-                deleteIncomeCategory(inc.id);
+                deleteIncomeCategory(inc.id,index);
                
               }, icon: const Icon(Icons.delete)),
             ),

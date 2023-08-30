@@ -23,7 +23,7 @@ class expenselistview extends StatelessWidget {
             
             child: ListTile( tileColor: Color.fromARGB(255, 248, 223, 223),
             
-              title: Text(exp.name??''),
+              title: Text(exp.name??""),
               trailing: IconButton(onPressed: (){
                 // delete item frm expense
                 deleteExpenseCategory(exp.id??'');

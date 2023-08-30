@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:personal_money_management_app/Home/Homescreen.dart';
+import 'package:personal_money_management_app/Home/Widgets/loginscreen.dart';
+import 'package:personal_money_management_app/Home/Widgets/splashscreen.dart';
 import 'package:personal_money_management_app/Models/category/categorymodel.dart';
 import 'package:personal_money_management_app/Models/category/transactionmodel.dart';
 
@@ -27,13 +29,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Money Manager',
       theme: ThemeData(
      
         colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 46, 125, 50)),
         useMaterial3: true,
       ),
-      home:Homescreen()
+      home:SplashScreen()
     );
   }
 }

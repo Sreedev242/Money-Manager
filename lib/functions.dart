@@ -40,10 +40,10 @@ Future getcategory() async {
 
 //  Following is to delete IncomeCategory Item
 
-Future<void> deleteIncomeCategory(String? xID)async{
+Future<void> deleteIncomeCategory(String? xID, index)async{
    final namebox = await Hive.openBox<CategoryModel>(boxname);
    
-  await namebox.delete(xID);
+  await namebox.deleteAt(index);
 incomecategorynotifier.value.removeWhere((element) => element.id==xID);
 // final transBox = await Hive.openBox<TransactionModel>('trans');
 // transBox.delete(xID);
