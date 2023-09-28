@@ -90,7 +90,7 @@ class TransactionScreen extends StatelessWidget {
         valueListenable: TransactionNotifierlist,
         builder: (BuildContext context, List<TransactionModel> TransList, Widget? _) {
         if (TransList.isEmpty) {
-         return Center(child: Text('Add Categoty',style: TextStyle(color: Colors.grey),),);
+         return Center(child: Text('Add Category',style: TextStyle(color: Colors.grey),),);
         }
           return GroupedListView<TransactionModel, DateTime>(
             elements: TransList,
