@@ -12,12 +12,15 @@ ValueNotifier<List<TransactionModel>> TransactionNotifierlist =
 
 const String boxname = 'xbox';
 
+
+// Following is to add category
+
 Future<void> insertCategory(CategoryModel value) async {
   final namebox = await Hive.openBox<CategoryModel>(boxname);
   namebox.add(value);
-  getcategory();
+ await getcategory();
 }
-// Following fuction is to display on ui when new data is added
+// Following fuction is to refresh ui when category is added
 
 Future getcategory() async {
   final namebox = await Hive.openBox<CategoryModel>(boxname);
@@ -40,33 +43,34 @@ Future getcategory() async {
 
 //  Following is to delete IncomeCategory Item
 
-Future<void> deleteIncomeCategory(String? xID, index)async{
+Future<void> deleteIncomeCategory(String? xID)async{
    final namebox = await Hive.openBox<CategoryModel>(boxname);
    
-  await namebox.deleteAt(index);
+  await namebox.delete(xID);
 incomecategorynotifier.value.removeWhere((element) => element.id==xID);
 // final transBox = await Hive.openBox<TransactionModel>('trans');
 // transBox.delete(xID);
 // TransactionNotifierlist.value.removeWhere((element) => element.categotyItem.id==xID);
 // TransactionNotifierlist.notifyListeners();
-   incomecategorynotifier.notifyListeners();
 
+   incomecategorynotifier.notifyListeners();
+await getcategory();
 }
 
 //  Following is to delete expenseCategory Item
 
-Future<void>  deleteExpenseCategory(String xID)async{
+Future<void>  deleteExpenseCategory(String? xID)async{
    final namebox = await Hive.openBox<CategoryModel>(boxname);
 
   await namebox.delete(xID);
       expensecategorynotifier.value.removeWhere((element) => element.id==xID);
-      final transBox = await Hive.openBox<TransactionModel>('trans');
-transBox.delete(xID);
-TransactionNotifierlist.value.removeWhere((element) => element.categotyItem.id==xID);
-TransactionNotifierlist.notifyListeners();
-   
-   expensecategorynotifier.notifyListeners();
+//       final transBox = await Hive.openBox<TransactionModel>('trans');
+// transBox.delete(xID);
+// TransactionNotifierlist.value.removeWhere((element) => element.categotyItem.id==xID);
+// TransactionNotifierlist.notifyListeners();
   
+   expensecategorynotifier.notifyListeners();
+   await getcategory();
 }
 
 // Following is to get items from Add transaction
@@ -89,5 +93,6 @@ Future<void>deleteTransaction(String? xId)async{
   await transBox.delete(xId);
   TransactionNotifierlist.value.removeWhere((element) => element.id==xId);
 TransactionNotifierlist.notifyListeners();
+await getTransaction();
 
 }

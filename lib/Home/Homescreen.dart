@@ -21,7 +21,7 @@ class Homescreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  
+  getcategory();
     return SafeArea(
       child: Scaffold(
         
@@ -32,6 +32,7 @@ class Homescreen extends StatelessWidget {
             onPressed: ()async{
               final _sharedprefs=await SharedPreferences.getInstance();
             await  _sharedprefs.clear();
+          await  getTransaction();
                 Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context){
                   return LoginScreen();
                 }), (route) => false);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:intl/intl.dart';
+import 'package:personal_money_management_app/Category/Categoeyscreen.dart';
 import 'package:personal_money_management_app/Models/category/category_dialogbox.dart';
 import 'package:personal_money_management_app/Models/category/categorymodel.dart';
 import 'package:personal_money_management_app/functions.dart';
@@ -134,7 +135,12 @@ class addTransactionscreen extends StatelessWidget {
                             child: Text(e.name ?? '',),
                             value: e,
                             onTap: () {
-                              _selectedCategoryItem = e;
+                              if (CorrespondingList.value.isEmpty) {
+                              Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
+                                return categoryscreen();
+                              }));
+                            }else{ _selectedCategoryItem = e;}
+                             
                             },
                           );
                         }).toList(),
@@ -158,10 +164,10 @@ class addTransactionscreen extends StatelessWidget {
               // SUBMIT BUTTON
 
               ElevatedButton(
-                  onPressed: () {
+                  onPressed: ()async {
                     // Funtn od submit button
-                    addTransaction(context);
-                    getTransaction();
+                   await addTransaction(context);
+                  await  getTransaction();
                    
                   },
                   child: const Text('Submit'))

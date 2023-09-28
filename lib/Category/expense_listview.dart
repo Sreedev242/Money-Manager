@@ -3,11 +3,14 @@ import 'package:personal_money_management_app/functions.dart';
 
 import '../Models/category/categorymodel.dart';
 
+// EXPENSE LISTVIEW
+
 class expenselistview extends StatelessWidget {
   const expenselistview({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // getcategory();
     return ValueListenableBuilder(
       valueListenable: expensecategorynotifier, 
       builder: (BuildContext context, List<CategoryModel> newcategoryexpense, Widget?_){
@@ -24,9 +27,9 @@ class expenselistview extends StatelessWidget {
             child: ListTile( tileColor: Color.fromARGB(255, 248, 223, 223),
             
               title: Text(exp.name??""),
-              trailing: IconButton(onPressed: (){
+              trailing: IconButton(onPressed: ()async{
                 // delete item frm expense
-                deleteExpenseCategory(exp.id??'');
+               await deleteExpenseCategory(exp.id);
               }, icon: Icon(Icons.delete)),
             ),
           ),

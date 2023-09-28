@@ -75,12 +75,13 @@ import 'package:personal_money_management_app/Models/category/categorymodel.dart
 import '../Models/category/transactionmodel.dart';
 import '../functions.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-
+   bool nothingOnUi=false;
 class TransactionScreen extends StatelessWidget {
   const TransactionScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+ 
     getTransaction();
     getcategory();
     return Scaffold(
@@ -88,6 +89,9 @@ class TransactionScreen extends StatelessWidget {
       body: ValueListenableBuilder(
         valueListenable: TransactionNotifierlist,
         builder: (BuildContext context, List<TransactionModel> TransList, Widget? _) {
+        if (TransList.isEmpty) {
+         return Center(child: Text('Add Categoty',style: TextStyle(color: Colors.grey),),);
+        }
           return GroupedListView<TransactionModel, DateTime>(
             elements: TransList,
             groupBy: (transaction) => DateTime(transaction.date.year, transaction.date.month, transaction.date.day),
@@ -102,8 +106,10 @@ class TransactionScreen extends StatelessWidget {
               key: Key(transaction.id!),
               startActionPane:ActionPane(
                 motion: ScrollMotion(), children: [
-                SlidableAction(onPressed: (ctx){
-                  deleteTransaction(transaction.id);
+                SlidableAction(
+                  onPressed: (ctx)async{
+                 await deleteTransaction(transaction.id);
+                //  await getTransaction();
                 },
                 backgroundColor:Color.fromARGB(255, 237, 50, 50),
                 icon: Icons.delete,)

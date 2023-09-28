@@ -39,7 +39,7 @@ Future<void> showdialogueBox(BuildContext context) async {
                   const SizedBox(
                     height: 16,
                   ),
-                  ElevatedButton(onPressed: () {
+                  ElevatedButton(onPressed: () async{
                   // Add category
                   final _name=_ctrladdcategory.text;
                 if (_name.isEmpty) {
@@ -48,13 +48,14 @@ Future<void> showdialogueBox(BuildContext context) async {
                  
                 }else{
 
-                insertCategory(CategoryModel(
+              await  insertCategory(CategoryModel(
                   name: _name, 
                   catType: selectedcategorynotifier.value,
                    id: DateTime.now().millisecondsSinceEpoch.toString(),));
-                   getcategory();
+                  // await getcategory();
                  
                   }Navigator.of(context).pop();
+                  _ctrladdcategory.clear();
                   },
                    child: const Text('Add'))
                 ],
